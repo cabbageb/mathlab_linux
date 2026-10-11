@@ -49,7 +49,9 @@ class LocalRuntime:
                 "MATHLAB_DATABASE_URL": f"sqlite+pysqlite:///{self.data_root / 'mathlab.sqlite3'}",
                 "MATHLAB_REQUIRE_LIVE_CREDIT_PRICING": "0",
                 "MATHLAB_ALLOW_UNLISTED_MODELS": "1",
-                "MATHLAB_PROVIDER_CONFIG": str(ROOT / "config" / "provider.toml"),
+                "MATHLAB_PROVIDER_CONFIG": os.environ.get(
+                    "MATHLAB_PROVIDER_CONFIG", str(ROOT / "config" / "provider.toml")
+                ),
             }
         )
         if self.offline:
@@ -220,6 +222,21 @@ def _show(client: MathLabClient) -> None:
         print("(no contract yet)")
 
 
+def _set_policy(client: MathLabClient, argument: str) -> None:
+    """在批准前冻结本地会话的模型档位和研究时长。"""
+    if not client.conversation_id:
+        raise RuntimeError("先选择会话")
+    parts = shlex.split(argument)
+    if len(parts) != 2:
+        raise RuntimeError("用法：/policy <model_tier> <duration_tier>")
+    result = client.request(
+        "PATCH",
+        f"/api/conversations/{client.conversation_id}/execution-policy",
+        json={"model_tier": parts[0], "duration_tier": parts[1]},
+    )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+
+
 def _generate(client: MathLabClient) -> None:
     conversation_id = getattr(client, "conversation_id", None)
     if not conversation_id:
@@ -295,7 +312,7 @@ def repl(client: MathLabClient) -> None:
         command, _, argument = raw.partition(" ")
         try:
             if command == "/help":
-                print("/new <problem>  /sessions  /use <id>  /show  /generate  /edit  /commit  /approve  /status  /events  /test_api  /quit")
+                print("/new <problem>  /sessions  /use <id>  /show  /generate  /edit  /commit  /policy <model_tier> <duration_tier>  /approve  /status  /events  /test_api  /quit")
             elif command == "/sessions":
                 _print_sessions(client)
             elif command == "/new":
@@ -324,6 +341,8 @@ def repl(client: MathLabClient) -> None:
                 _generate(client)
             elif command == "/edit":
                 _edit(client)
+            elif command == "/policy":
+                _set_policy(client, argument)
             elif command == "/commit":
                 result = client.request("POST", f"/api/conversations/{client.conversation_id}/draft/commit")
                 print(f"working draft committed as Contract v{result.get('version')}")

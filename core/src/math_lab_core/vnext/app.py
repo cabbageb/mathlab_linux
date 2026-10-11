@@ -503,7 +503,9 @@ def create_vnext_app(
             response.headers.setdefault("Cache-Control", "no-store")
         return response
     browser_root = settings.root / "browser"
-    app.mount("/static", StaticFiles(directory=browser_root), name="static")
+    browser_available = browser_root.is_dir()
+    if browser_available:
+        app.mount("/static", StaticFiles(directory=browser_root), name="static")
 
     def optional_session_user(request: Request) -> str | None:
         session_id = request.cookies.get(settings.session_cookie_name)
@@ -516,12 +518,16 @@ def create_vnext_app(
 
     @app.get("/")
     async def index(request: Request):
+        if not browser_available or not (browser_root / "index.html").is_file():
+            raise HTTPException(status_code=404, detail="Browser UI is not included in this distribution")
         if not settings.test_auth_bypass and optional_session_user(request) is None:
             return RedirectResponse("/login", status_code=302)
         return FileResponse(browser_root / "index.html")
 
     @app.get("/login")
     async def login_page(request: Request):
+        if not browser_available or not (browser_root / "login.html").is_file():
+            raise HTTPException(status_code=404, detail="Browser UI is not included in this distribution")
         if optional_session_user(request) is not None:
             return RedirectResponse("/", status_code=302)
         return FileResponse(browser_root / "login.html")

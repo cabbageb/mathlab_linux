@@ -8,7 +8,7 @@ terminal. It does not require Docker or a browser.
 ## Requirements
 
 - Linux with Python 3.11 or newer;
-- Node.js/npm and the OpenAI Codex CLI;
+- the OpenAI Codex CLI (Node.js/npm may be used to install it);
 - XeLaTeX and `latexmk` when PDF publication is needed;
 - a provider with an OpenAI Responses-compatible `/v1/responses` endpoint.
 
@@ -56,6 +56,7 @@ Useful commands inside the CLI:
 /generate
 /edit
 /commit
+/policy <model_tier> <duration_tier>
 /approve
 /status
 /events
@@ -73,6 +74,20 @@ mathlab-linux test-api --profile medium
 
 Add `--yes` only when the paid probe is intentional.
 
+For the full isolated acceptance, configure the provider first and run:
+
+```bash
+python scripts/local/live_acceptance.py \
+  --problem "State the research problem for this acceptance run." \
+  --yes
+```
+
+This creates a separate temporary SQLite/data directory, generates an immutable
+Contract with the low profile, freezes `gpt_low + quick_1h` (3,600 research
+seconds), runs the real provider, and waits for the final publication pipeline.
+The report and PDF remain in the printed temporary directory. The command never
+prints the API key.
+
 Local data is stored under `~/.local/share/mathlab_linux` by default. Override
 it with `--data-root` or `MATHLAB_DATA_ROOT`.
 
@@ -85,10 +100,11 @@ Version; `/approve` freezes that version and queues its Research Run.
 
 ## Safety boundary
 
-This repository is a local single-user application. It contains no production
-database, user data, deployment credentials, internal server addresses or
-private operational runbooks. Long Research Runs should be executed on a
-machine intended for computation rather than a shared login node.
+This repository is a local single-user, terminal-first application. It does not
+ship the web browser UI or browser assets. It contains no production database,
+user data, deployment credentials, internal server addresses or private
+operational runbooks. Long Research Runs should be executed on a machine
+intended for computation rather than a shared login node.
 
 ## License
 

@@ -14,6 +14,4 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install -e '.[test]'
       - run: python -m pytest -q tests_linux
-      - run: python -m compileall -q provider_config.py mathlab_linux_cli.py core planner prover
-      - run: node --check browser/app.js
-      - run: node --check browser/login.js
+      - run: python -m compileall -q provider_config.py mathlab_linux_cli.py scripts/local/live_acceptance.py core planner prover
