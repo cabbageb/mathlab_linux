@@ -304,8 +304,8 @@ def load_settings(path: Path) -> VNextSettings:
     env = os.environ.get("MATHLAB_ENV", "development")
     offline = os.environ.get("MATHLAB_OFFLINE_AGENTS", "0") == "1"
     domains = _csv(os.environ.get("MATHLAB_ALLOWED_EMAIL_DOMAINS")) or tuple(str(item).lower().lstrip("@") for item in auth.get("allowed_email_domains", ["local.mathlab"]))
-    auth_secret = os.environ.get("MATHLAB_AUTH_SECRET", str(auth.get("auth_secret", "mathlab-development-only-secret")))
-    if env == "production" and (not auth_secret or auth_secret == "mathlab-development-only-secret"):
+    auth_secret = os.environ.get("MATHLAB_AUTH_SECRET", str(auth.get("auth_secret", "local-only-placeholder")))
+    if env == "production" and (not auth_secret or auth_secret == "local-only-placeholder"):
         raise RuntimeError("生产环境必须设置非默认 MATHLAB_AUTH_SECRET")
     smtp_socks_host = os.environ.get("MATHLAB_SMTP_SOCKS_HOST", str(smtp.get("socks_host", ""))).strip()
     smtp_socks_port = int(os.environ.get("MATHLAB_SMTP_SOCKS_PORT", smtp.get("socks_port", 1080)))

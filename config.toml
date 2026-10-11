@@ -15,7 +15,7 @@ data_root = "~/.local/share/mathlab_linux"
 url_env = "MATHLAB_DATABASE_URL"
 url = "sqlite+pysqlite:///~/.local/share/mathlab_linux/mathlab.sqlite3"
 echo = false
-# Development/tests may create tables directly. Production Docker runs Alembic and sets this false.
+# Local development may create tables directly; deployed environments can run Alembic.
 auto_create_schema = true
 
 [vnext_runtime]

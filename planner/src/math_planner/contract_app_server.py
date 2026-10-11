@@ -66,7 +66,7 @@ class ContractAppServerClient:
         self._stderr_tail = ""
 
     def _sandbox(self) -> str:
-        """Docker 内由容器隔离，宿主直跑时继续使用工作区沙盒。"""
+        """有外部隔离边界时放宽权限；直接运行时继续使用工作区沙盒。"""
         return (
             "danger-full-access"
             if self.config.codex.use_docker_boundary
