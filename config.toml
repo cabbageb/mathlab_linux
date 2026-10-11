@@ -1,0 +1,181 @@
+[application]
+name = "MathLab — AI-assisted Mathematical Research"
+host = "127.0.0.1"
+port = 3264
+open_browser = false
+
+[components]
+planner_config = "planner/config.toml"
+prover_config = "prover/config.toml"
+
+[storage]
+data_root = "~/.local/share/mathlab_linux"
+
+[database]
+url_env = "MATHLAB_DATABASE_URL"
+url = "sqlite+pysqlite:///~/.local/share/mathlab_linux/mathlab.sqlite3"
+echo = false
+# Development/tests may create tables directly. Production Docker runs Alembic and sets this false.
+auto_create_schema = true
+
+[vnext_runtime]
+contract_repair_attempts = 5
+contract_integrator_repair_attempts = 50
+local_review_report_threshold = 2
+architecture_review_stage_threshold = 2
+architecture_review_interval_seconds = 900
+architecture_review_communication_threshold = 3
+architecture_review_distinct_node_threshold = 2
+architecture_shared_bottleneck_node_threshold = 2
+architecture_root_stagnation_seconds = 1800
+max_parallel_research_nodes = 10
+max_promotions_per_review = 2
+max_workers_per_research_node = 7
+internal_max_parallel_agent_calls = 22
+max_local_reviews_per_node = 40
+default_run_seconds = 14400
+graceful_shutdown_soft_seconds = 30
+graceful_shutdown_hard_seconds = 90
+node_drain_soft_seconds = 30
+node_drain_hard_seconds = 3900
+runner_poll_seconds = 1.0
+admin_runner_max_concurrent_runs = 8
+user_runner_max_concurrent_runs = 2
+admin_contract_generation_max_concurrent = 10
+user_contract_generation_max_concurrent = 2
+compute_tool_timeout_seconds = 30
+latex_compile_timeout_seconds = 120
+public_summary_timeout_seconds = 180
+runtime_retention_days = 7
+runtime_gc_poll_seconds = 30
+developer_active_run_override = true
+developer_max_concurrent_runs = 10
+user_max_concurrent_runs = 2
+
+[auth]
+allowed_email_domains = ["local.mathlab"]
+otp_expiry_seconds = 600
+otp_max_attempts = 5
+otp_resend_cooldown_seconds = 60
+otp_daily_send_limit = 10
+session_ttl_seconds = 604800
+session_cookie_name = "mathlab_session"
+csrf_cookie_name = "mathlab_csrf"
+session_cookie_secure = false
+auth_secret = "local-only-placeholder"
+bootstrap_admin_email = ""
+bootstrap_admin_credit = 1000000000.0
+new_user_initial_credit = 0.0
+default_storage_quota_bytes = 536870912
+
+[smtp]
+mode = "console"
+host = "localhost"
+port = 465
+username = ""
+password = ""
+from = "MathLab <no-reply@local.mathlab>"
+tls_mode = "ssl"
+socks_host = ""
+socks_port = 1080
+
+[paid_operations]
+require_live_credit_pricing = false
+
+[paid_operations.contract_generation_reserves]
+low = 1.0
+medium = 2.0
+high = 3.0
+
+[paid_operations.contract_generation_estimated_minutes]
+low = 10
+medium = 15
+high = 20
+
+[paid_operations.contract_chat_reserves]
+low = 0.5
+medium = 1.0
+high = 2.0
+
+[expected_costs]
+cost_priority = 5.0
+balanced = 20.0
+capability_priority = 60.0
+
+# Actual-cost fallback when the provider usage payload does not contain an
+# explicit MathLab Credit cost. Values are Credits per one million tokens.
+[model_pricing."gpt-5.6-sol"]
+input_per_million = 3.65
+cached_input_per_million = 0.365
+output_per_million = 21.9
+
+[model_pricing."gpt-5.6-luna"]
+input_per_million = 0.146
+cached_input_per_million = 0.0146
+output_per_million = 0.876
+
+[model_pricing."qwen3.8-max"]
+input_per_million = 1.2556
+cached_input_per_million = 0.1606
+output_per_million = 3.796
+
+[model_pricing."deepseek-v4-pro"]
+input_per_million = 0.949
+cached_input_per_million = 0.03139
+output_per_million = 2.8178
+
+[execution_policy]
+pricing_version = "dev-v3"
+publication_estimate_seconds = 2700
+
+[execution_policy.model_tiers.gpt_low]
+label = "GPT Low"
+live_mapping = "gpt_low"
+description = "全程采用 GPT-5.6 Luna Max 覆盖研究、核验与论文整理，适合以较低成本快速判断问题是否可做、主要研究路线是否成立。"
+
+[execution_policy.model_tiers.gpt_medium]
+label = "GPT Medium"
+live_mapping = "gpt_medium"
+description = "以 Sol 高强度能力为核心，分支探索采用 Luna Max，兼顾研究质量与计算成本；这是性价比最高的方案。"
+
+[execution_policy.model_tiers.gpt_high]
+label = "GPT High"
+live_mapping = "gpt_high"
+description = "以 Sol 最高强度能力覆盖主要研究过程；适合追求最高结果质量。"
+
+[execution_policy.model_tiers.qwen_only]
+label = "Qwen only"
+live_mapping = "qwen_only"
+description = "Qwen 3.8 Max 推理速度较慢、价格较高，实测表现接近 GPT Low。建议仅在 GPT 模型暂不可用时作为备选方案。"
+
+[execution_policy.duration_tiers.quick_1h]
+label = "Quick · 1 hour"
+duration_seconds = 3600
+
+[execution_policy.duration_tiers.balanced_3h]
+label = "Balanced · 3 hours"
+duration_seconds = 10800
+
+[execution_policy.duration_tiers.detailed_6h]
+label = "Detailed · 6 hours"
+duration_seconds = 21600
+
+[execution_policy.price_table.gpt_low]
+quick_1h = 2.0
+balanced_3h = 4.5
+detailed_6h = 9.0
+
+[execution_policy.price_table.gpt_medium]
+quick_1h = 15.0
+balanced_3h = 40.0
+detailed_6h = 80.0
+
+[execution_policy.price_table.gpt_high]
+quick_1h = 20.0
+balanced_3h = 50.0
+detailed_6h = 100.0
+
+[execution_policy.price_table.qwen_only]
+quick_1h = 12.0
+balanced_3h = 30.0
+detailed_6h = 60.0

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in · MathLab</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/style.css?v=20260823-login-1">
+  <script defer src="/static/login.js?v=20260823-login-1"></script>
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-brand-panel">
+      <p class="eyebrow">MathLab</p>
+      <h1><span>AI for</span><span>Mathematical Research</span></h1>
+      <p>帮助你组织问题、跟踪思路，并逐步沉淀研究结果。</p>
+    </section>
+    <section class="login-form-panel">
+      <form id="login-email-form">
+        <p class="eyebrow">Sign in</p>
+        <h2>使用邮箱登录</h2>
+        <p class="support-note">
+          <span>输入常用邮箱，我们会向你发送一封包含验证码的邮件。验证码 10 分钟内有效。</span>
+          <span class="login-email-recommendation">推荐使用复旦邮箱，<br>首次注册可获得初始额度赠送。</span>
+        </p>
+        <label>邮箱地址<input id="login-email" type="email" autocomplete="email" required placeholder="name@example.edu"></label>
+        <button class="primary wide" type="submit">获取验证码</button>
+      </form>
+      <form id="login-code-form" class="hidden">
+        <p class="eyebrow">Verification</p>
+        <h2>输入 6 位验证码</h2>
+        <p id="login-email-copy" class="support-note"></p>
+        <label>验证码<input id="login-code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></label>
+        <button class="primary wide" type="submit">验证并登录</button>
+        <div class="login-secondary-actions">
+          <button id="login-resend" class="ghost" type="button" disabled>重新发送</button>
+          <button id="login-change-email" class="ghost" type="button">更换邮箱</button>
+        </div>
+      </form>
+      <p id="login-status" class="login-status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>

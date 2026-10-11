@@ -1,0 +1,83 @@
+[application]
+name = "MathLab Contract-first Planner"
+role_call_timeout_seconds = 1800
+
+[codex]
+binary = "codex"
+provider = "custom_provider"
+base_url = "https://api.example.com/v1"
+api_key_env = "MATHLAB_PROVIDER_API_KEY"
+history_persistence = "save-all"
+model_catalog = "model_catalog.json"
+model_context_window = 1000000
+model_auto_compact_token_limit = 800000
+
+[models.contractor]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[models.contract_integrator]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[models.contract_fidelity_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[models.contract_completeness_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[models.contract_map_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+
+[model_profiles.low.contractor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.low.contract_integrator]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.low.contract_fidelity_auditor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.low.contract_completeness_auditor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.low.contract_map_auditor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+
+[model_profiles.medium.contractor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.medium.contract_integrator]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.medium.contract_fidelity_auditor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.medium.contract_completeness_auditor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.medium.contract_map_auditor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+
+[model_profiles.high.contractor]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.high.contract_integrator]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.high.contract_fidelity_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.high.contract_completeness_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.high.contract_map_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+
+[search]
+theorem_primary_endpoint = "https://api.theoremsearch.com/search"
+theorem_fallback_endpoint = "https://leansearch.net/thm/search"
+arxiv_api_endpoint = "https://export.arxiv.org/api/query"
+timeout_seconds = 45

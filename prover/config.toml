@@ -1,0 +1,282 @@
+[application]
+role_call_timeout_seconds = 1800
+paper_writer_timeout_seconds = 2400
+paper_writer_warning_remaining_seconds = 600
+
+[codex]
+binary = "codex"
+provider = "custom_provider"
+base_url = "https://api.example.com/v1"
+api_key_env = "MATHLAB_PROVIDER_API_KEY"
+history_persistence = "save-all"
+model_catalog = "model_catalog.json"
+model_auto_compact_token_limit = 800000
+
+[models.research_literature]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[models.research_construction]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[models.research_general_proof]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[models.research_cross_domain]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[models.research_node_supervisor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[models.research_architecture_reviewer]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[models.research_claim_verifier]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[models.paper_writer]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[models.paper_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[models.public_summarizer]
+model = "gpt-5.6-luna"
+reasoning_effort = "medium"
+
+# Execution Policy profiles.  Contract approval resolves one profile into an
+# immutable per-role snapshot stored on the Research Run.
+[model_profiles.gpt_low.research_literature]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.research_construction]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.research_general_proof]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.research_cross_domain]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.research_node_supervisor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.research_architecture_reviewer]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.research_claim_verifier]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.paper_writer]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.paper_auditor]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_low.public_summarizer]
+model = "gpt-5.6-luna"
+reasoning_effort = "low"
+
+[model_profiles.deepseek_only.research_literature]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.research_construction]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.research_general_proof]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.research_cross_domain]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.research_node_supervisor]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.research_architecture_reviewer]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.research_claim_verifier]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.paper_writer]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.paper_auditor]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.deepseek_only.public_summarizer]
+model = "deepseek-v4-pro"
+reasoning_effort = "low"
+
+[model_profiles.gpt_medium.research_literature]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_medium.research_construction]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_medium.research_general_proof]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_medium.research_cross_domain]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_medium.research_node_supervisor]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_medium.research_architecture_reviewer]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_medium.research_claim_verifier]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_medium.paper_writer]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_medium.paper_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_medium.public_summarizer]
+model = "gpt-5.6-luna"
+reasoning_effort = "medium"
+
+[model_profiles.gpt_high.research_literature]
+model = "gpt-5.6-luna"
+reasoning_effort = "max"
+[model_profiles.gpt_high.research_construction]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_high.research_general_proof]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_high.research_cross_domain]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_high.research_node_supervisor]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_high.research_architecture_reviewer]
+model = "gpt-5.6-sol"
+reasoning_effort = "max"
+[model_profiles.gpt_high.research_claim_verifier]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_high.paper_writer]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_high.paper_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_high.public_summarizer]
+model = "gpt-5.6-luna"
+reasoning_effort = "medium"
+
+[model_profiles.gpt_deepseek_mixture.research_literature]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.gpt_deepseek_mixture.research_construction]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.gpt_deepseek_mixture.research_general_proof]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.gpt_deepseek_mixture.research_cross_domain]
+model = "deepseek-v4-pro"
+reasoning_effort = "max"
+[model_profiles.gpt_deepseek_mixture.research_node_supervisor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_deepseek_mixture.research_architecture_reviewer]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_deepseek_mixture.research_claim_verifier]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_deepseek_mixture.paper_writer]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_deepseek_mixture.paper_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_deepseek_mixture.public_summarizer]
+model = "gpt-5.6-luna"
+reasoning_effort = "medium"
+
+[model_profiles.qwen_only.research_literature]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.research_construction]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.research_general_proof]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.research_cross_domain]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.research_node_supervisor]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.research_architecture_reviewer]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.research_claim_verifier]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.paper_writer]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.paper_auditor]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.qwen_only.public_summarizer]
+model = "qwen3.8-max"
+reasoning_effort = "low"
+
+[model_profiles.gpt_qwen_mixture.research_literature]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.gpt_qwen_mixture.research_construction]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.gpt_qwen_mixture.research_general_proof]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.gpt_qwen_mixture.research_cross_domain]
+model = "qwen3.8-max"
+reasoning_effort = "high"
+[model_profiles.gpt_qwen_mixture.research_node_supervisor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_qwen_mixture.research_architecture_reviewer]
+model = "gpt-5.6-sol"
+reasoning_effort = "xhigh"
+[model_profiles.gpt_qwen_mixture.research_claim_verifier]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_qwen_mixture.paper_writer]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_qwen_mixture.paper_auditor]
+model = "gpt-5.6-sol"
+reasoning_effort = "high"
+[model_profiles.gpt_qwen_mixture.public_summarizer]
+model = "gpt-5.6-luna"
+reasoning_effort = "medium"
+
+[search]
+theorem_primary_endpoint = "https://api.theoremsearch.com/search"
+theorem_fallback_endpoint = "https://leansearch.net/thm/search"
+arxiv_api_endpoint = "https://export.arxiv.org/api/query"
+max_results = 8
+timeout_seconds = 45
+max_literature_theorem_searches = 1
+max_literature_arxiv_searches = 2
+max_literature_abstracts = 5
+max_literature_papers = 1
+
+[publication_literature]
+enabled = true
+theorem_searches = 6
+arxiv_searches = 6
+abstract_candidates = 30
+fulltext_papers = 4
+abstract_keep = 5

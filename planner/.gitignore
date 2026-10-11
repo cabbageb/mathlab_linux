@@ -1,0 +1,8 @@
+.runtime/
+__pycache__/
+.pytest_cache/
+*.pyc
+runs/*
+!runs/.gitkeep
+projects/*
+!projects/.gitkeep
