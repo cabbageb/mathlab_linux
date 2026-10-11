@@ -91,6 +91,8 @@ def _check_provider() -> tuple[dict, str, str, str]:
     effort = str(low.get("reasoning_effort", "")).strip()
     if not base_url or not api_key_env or not model:
         raise RuntimeError("provider.toml must define base_url, api_key_env and profiles.low.model")
+    if "api.example.com" in base_url or model.startswith("your-model-"):
+        raise RuntimeError("provider.toml still contains placeholder URL/model; no call was made")
     if not os.environ.get(api_key_env):
         raise RuntimeError(f"environment variable {api_key_env} is not set; no call was made")
     if os.environ.get("MATHLAB_OFFLINE_AGENTS", "0") == "1":
