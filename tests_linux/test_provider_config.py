@@ -49,4 +49,5 @@ def test_unlisted_models_get_a_runtime_catalog_entry(tmp_path, monkeypatch):
     monkeypatch.setenv("MATHLAB_PROVIDER_CONFIG", str(tmp_path / "missing.toml"))
     catalog = extend_catalog({"models": []}, {"custom-model"}, root=tmp_path)
     assert catalog["models"][0]["slug"] == "custom-model"
+    assert catalog["models"][0]["base_instructions"]
     assert {item["effort"] for item in catalog["models"][0]["supported_reasoning_levels"]} >= {"high", "max"}

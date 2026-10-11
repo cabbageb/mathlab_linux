@@ -111,6 +111,7 @@ def extend_catalog(
                 "slug": slug,
                 "display_name": slug,
                 "description": "User-configured Responses-compatible model.",
+                "base_instructions": "Follow the role instructions supplied by the MathLab controller.",
                 "default_reasoning_level": str(efforts[-1]),
                 "supported_reasoning_levels": [
                     {"effort": str(effort), "description": str(effort)} for effort in efforts
