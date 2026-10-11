@@ -26,12 +26,11 @@ python -m pip install -e .
 cp .env.example .env
 ```
 
-Edit [`config/provider.toml`](config/provider.toml) with the provider URL, the
-name of the environment variable containing the key, and the model tags. Then
-export that key, or put it in `.env`:
+The checked-in example is configured for AdvancedSolver. Export the key named by
+`api_key_env`, or put it in `.env`:
 
 ```bash
-export MATHLAB_PROVIDER_API_KEY='your-key'
+export ADVANCEDSOLVER_API_KEY='your-key'
 ```
 
 The key is read only by the local process. It is never written to the database,

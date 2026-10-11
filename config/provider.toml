@@ -3,29 +3,28 @@
 # stored in this file.
 
 [provider]
-provider = "custom_provider"
-base_url = "https://api.example.com/v1"
-api_key_env = "MATHLAB_PROVIDER_API_KEY"
+provider = "advancedsolver"
+base_url = "https://oneapi.advancedsolver.com/v1"
+api_key_env = "ADVANCEDSOLVER_API_KEY"
 wire_api = "responses"
-default_model = "your-model-medium"
+default_model = "gpt-6.1-sol"
 default_reasoning_effort = "high"
 model_context_window = 1000000
 model_auto_compact_token_limit = 800000
 supported_reasoning_levels = ["low", "medium", "high", "xhigh", "max"]
 
-# These defaults are deliberately placeholders. Replace them with the model
-# tags exposed by your provider. All three profiles are applied to every role
-# unless a component-specific override is supplied below.
+# These defaults target the AdvancedSolver Responses endpoint. Replace the
+# provider block and model tags if you use another compatible provider.
 [profiles.low]
-model = "your-model-low"
-reasoning_effort = "high"
+model = "gpt-6-luna"
+reasoning_effort = "max"
 
 [profiles.medium]
-model = "your-model-medium"
+model = "gpt-6.1-sol"
 reasoning_effort = "high"
 
 [profiles.high]
-model = "your-model-high"
+model = "gpt-6.1-sol"
 reasoning_effort = "xhigh"
 
 # Optional component/role overrides use the existing MathLab role names.
